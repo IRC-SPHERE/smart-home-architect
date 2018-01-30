@@ -1,0 +1,45 @@
+<div>
+<script type="text/x-red" data-template-name="HomeGateway">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="HomeGateway">
+  <p>SPHERE Home Gateway (SHG).</p>
+
+  <p>This device collects the data from all the sensors in the house and stores the data on its encrypted hard drive.</p>
+
+  <p><img src="images/hw/video_gw.jpg" alt="SHG" /></p>
+  
+  <p>This device uses Intel NUC hardware: a small, but powerful computer.</p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('HomeGateway', {
+        category: 'collection',      // the palette category
+        isHomeGateway: true,    // the one and only node type that gets this
+        defaults: {            // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:120}
+        },
+        color:"#a6bbcf",
+        cost:120,
+        capabilities:["USB", "WiFi"], //, "BLE"], // BLE is disabled as it was too confusing
+        capabilitiesOnlyInput: ["USB"],
+        capabilitiesOnlyOutput: [],
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "leveldb.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Home Gateway";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

@@ -1,0 +1,43 @@
+<div>
+<script type="text/x-red" data-template-name="ForwardingGateway">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="ForwardingGateway">
+  <p>SPHERE Forwarding Gateway (SPG-2).</p>
+
+  <p>This device collects from Environmental Sensors and Wristband Sensors, and forwards the data to a Home Gateway.</p>
+
+  <p><img src="images/hw/spg2-case.jpg" alt="SPG-2 node" /></p>
+
+  <p>This device uses embedded hardware developed in the SPHERE project, and operates in the 2.4 GHz frequency band. However, it only transmits weak radio signals and isn't going to significantly interfere with any WiFi devices imn the house.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('ForwardingGateway',{
+        category: 'collection',      // the palette category
+        defaults: {             // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:40}
+        },
+        cost:40,
+        color:"rgb(215, 215, 160)",
+        capabilities:["USB", "BLE", "TSCH"],
+        capabilitiesOnlyOutput: ["USB"],
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        modality : "gateway",
+        // set the icon (held in icons dir below where you save the node)
+        icon: "bridge.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Forwarding Gateway";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

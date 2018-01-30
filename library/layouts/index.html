@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <script>
+
+      console.log("executing...");
+
+    $(function() {
+
+      $.ajax({
+      dataType: "json",
+      mimeType: "application/json",
+      url: "sphere-house-layout.json",
+      success: function(data) {
+      
+      $.each(data, function(i, f) {
+
+      //console.log(JSON.stringify(f));
+      var tblRow = "<tr>" + "<td>" + f.room + "</td>" +
+        "<td>" + f.roomSegment + "</td>" + "</tr>"
+      $(tblRow).appendTo("#userdata tbody");
+      });
+      }});
+      });
+      </script> 
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="profile">
+        <table id="userdata" border="2">
+          <thead>
+            <th>Room</th>
+            <th>Room Segment</th>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </body>
+</html>

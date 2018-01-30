@@ -1,0 +1,99 @@
+[
+    {
+        "roomSegment" : "kitchen",
+        "room" : "kitchen",
+        "x1" : 537,
+        "y1" : 106,
+        "x2" : 861,
+        "y2" : 361
+    },
+    {
+        "roomSegment" : "kitchen entrance",
+        "room" : "kitchen",
+        "x1" : 537,
+        "y1" : 361,
+        "x2" : 630,
+        "y2" : 475
+    },
+
+    {
+        "roomSegment" : "master bedroom",
+        "room" : "master bedroom",
+        "x1" : 120,
+        "y1" : 730,
+        "x2" : 420,
+        "y2" : 1070
+    },
+    {
+        "roomSegment" : "guest bedroom",
+        "room" : "guest bedroom",
+        "x1" : 120,
+        "y1" : 415,
+        "x2" : 380,
+        "y2" : 715
+    },
+    {
+        "roomSegment" : "hall downstairs",
+        "room" : "hall-and-stairs",
+        "x1" : 535,
+        "y1" : 570,
+        "x2" : 640,
+        "y2" : 1050
+    },
+    {
+        "roomSegment" : "hall upstairs",
+        "room" : "hall-and-stairs",
+        "x1" : 390,
+        "y1" : 447,
+        "x2" : 510,
+        "y2" : 720
+    },
+    {
+        "roomSegment" : "stairs 1",
+        "room" : "hall-and-stairs",
+        "x1" : 620,
+        "y1" : 562,
+        "x2" : 700,
+        "y2" : 700
+    },
+    {
+        "roomSegment" : "stairs 2",
+        "room" : "hall-and-stairs",
+        "x1" : 530,
+        "y1" : 480,
+        "x2" : 700,
+        "y2" : 570
+    },
+    {
+        "roomSegment" : "study",
+        "room" : "study",
+        "x1" : 715,
+        "y1" : 370,
+        "x2" : 1000,
+        "y2" : 720
+    },
+    {
+        "roomSegment" : "living room",
+        "room" : "living room",
+        "x1" : 660,
+        "y1" : 740,
+        "x2" : 1000,
+        "y2" : 1070
+    },
+    {
+        "roomSegment" : "bathroom",
+        "room" : "bathroom",
+        "x1" : 355,
+        "y1" : 144,
+        "x2" : 508,
+        "y2" : 425
+    },
+    {
+        "roomSegment" : "toilet",
+        "room" : "toilet",
+        "x1" : 432,
+        "y1" : 850,
+        "x2" : 510,
+        "y2" : 1065
+    }
+]

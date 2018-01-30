@@ -1,0 +1,45 @@
+<div>
+<script type="text/x-red" data-template-name="WristbandSensor">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="WristbandSensor">
+  <p>SPHERE Wristband Sensor (SPW-2).</p>
+
+  <p>This device records activity levels of the participant wearing it, as well as helps to tell the location of the person wearing it, as long as they are in the house.</p>
+
+  <p><img src="images/hw/spw2-case.jpg" alt="SPW-2" /></p>
+
+  <p>Unlike other communication links in this game, the links between wristband sensors and other devices do not have to be explicitly configured. Wristband sensors are mobile and will talk to all nearby Forwarding Gateways within reachable range.</p>
+  
+  <p>This device uses embedded hardware developed in the SPHERE project. See <a href="https://www.youtube.com/watch?v=8JZSCt1OZsY&amp;list=PLOVqhuhSXob4MNDWhIrUiAmZGtwIJF-Mn" >here</a> for an explanatory video.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('WristbandSensor',{
+        category: 'wearable',   // the palette category
+        defaults: {             // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:40}
+        },
+        cost:40,
+        color:"#df562c",
+        capabilities:[], // does not have to be configured
+        modality: "wearable",
+        mobile: true,           // signal that no rooms need to be assigned
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:0,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "sensor.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Wristband Sensor";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

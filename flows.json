@@ -1,0 +1,21 @@
+[
+    {
+        "type": "tab",
+        "id": "e63a7b7c.71b018",
+        "label": "SPHERE house 1"
+    },
+    {
+        "type": "options",
+        "id": "options",
+        "visual": {
+            "backgroundImage": {
+                "url": "library/backgrounds/sphere-house-s.png",
+                "w": 1400,
+                "h": 1400
+            },
+            "taskWidth": 120,
+            "taskHeight": 30,
+            "linkWidth": 150
+        }
+    }
+]

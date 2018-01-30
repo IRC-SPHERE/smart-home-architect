@@ -1,0 +1,42 @@
+<div>
+<script type="text/x-red" data-template-name="EnvironmentalSensor">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="EnvironmentalSensor">
+  <p>SPHERE Environmental Sensor (SPES-2).</p>
+
+  <p>This device includes temperature, air humidity, and light sensors, as well as a movement (PIR) sensor that helps to localize participants in the house.</p>
+
+  <p><img src="images/hw/spes2-case.jpg" alt="SPES-2" /></p>
+
+  <p>This device uses embedded hardware developed in the SPHERE project. See <a href="https://www.youtube.com/watch?v=n9BQLMdqo6c&amp;index=2&amp;list=PLOVqhuhSXob4MNDWhIrUiAmZGtwIJF-Mn">here</a> for an explanatory video.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('EnvironmentalSensor',{
+        category: 'environmental',      // the palette category
+        defaults: {             // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:40}
+        },
+        cost:40,
+        color:"rgb(215, 215, 160)",
+        capabilities:["BLE", "TSCH"],
+        modality : "environmental",
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "sensor.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Environmental Sensor";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

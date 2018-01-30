@@ -1,0 +1,46 @@
+<div>
+<script type="text/x-red" data-template-name="Router">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Router">
+  <p>A router operating in WiFi and 3G (cellural) modes simultaneously.</p>
+
+  <p>WiFi communication is used to relay signals between in-house devices, for example, between the Home Gateway and Video Gateways. 3G communication is used to connect to the outside word: in particular, to the SPHERE Data Hub in the university.</p>
+
+  <p><img src="images/hw/router.jpg" alt="Router" /></p>
+
+  <p>The router is operating in the 5 GHz frequency band, using the IEEE 802.11ac standard.</p>
+  
+  <p>No health-related data is sent over the cellular connection in SPHERE, just the system monitoring data to make sure that it's still working and diagnose problems remotely.</p>
+
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('Router', {
+        category: 'collection',      // the palette category
+        defaults: {            // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:60}
+        },
+        color:"#a6bbcf",
+        cost:60,
+        capabilities:["WiFi", "3G"],
+        modality : "3G", // XXX
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:0,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "arrow-in.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Router";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

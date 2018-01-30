@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<!--
+  Copyright 2013 IBM Corp.
+  Copyright 2018 University of Bristol
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<title>Smart Home Architect</title>
+<link rel="icon" type="image/png" href="images/sphere-ico.png">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="jquery/css/smoothness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body spellcheck="false">
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+            <!-- Logo -->
+            <a class="brand" href="#"><img src="sphere.gif" alt=""> <span class="red">Smart Home Architect</span> </a>
+
+            <!-- Progress bars -->
+            <div class="btn-group pull-left elem-mainmenu">
+              <div id="progressbar-wearable" class="progressbar" data-label="0%" title="Wearable sensing coverage, %">
+                <span class="value" style="width:0%;background-color:#bf360c;" ></span>
+              </div>
+              <div id="progressbar-environmental" class="progressbar" data-label="0%" title="Environmental sensing coverage, %">
+                <span class="value" style="width:0%;background-color:#388e3c;"></span>
+              </div>
+              <div id="progressbar-video" class="progressbar" data-label="0%" title="Video sensing coverage, %">
+                <span class="value" style="width:0%;background-color:#ffa043;"></span>
+              </div> 
+            </div>
+
+            <div class="btn-group pull-left elem-mainmenu">
+              <a id="btn-achievements" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i id="btn-icn-achievements" class="icon-star"></i> Achievements <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" id="achievement-list"></ul>
+
+            </div>
+
+            <!-- Main menu -->
+            <div class="btn-group pull-right elem-mainmenu">
+
+              <!--                <a id="btn-suggestion" class="btn" href="#"><i id="btn-icn-suggestion" class="icon-question-sign"></i> Get a suggestion...</a> -->
+                <a id="btn-show-intro-main" class="btn" href="#"><i id="btn-icn-suggestion" class="icon-question-sign"></i> Introduction...</a>
+                <a id="btn-save" class="btn" href="#"><i id="btn-icn-save" class="icon-hdd"></i> Save</a>
+
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-align-justify"></i> Options <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a id="btn-sidebar" tabindex="-1" href="#"><i class="icon-ok pull-right"></i><i class="icon-list-alt"></i> Sidebar</a></li>
+
+                    <li class="divider"></li>
+
+                    <li><a id="btn-clear-devices" tabindex="-1" href="#"><i class="icon-ok pull-right"></i>Clear devices</a></li>
+                    <li><a id="btn-clear-achievements" tabindex="-1" href="#"><i class="icon-ok pull-right"></i>Clear achievements</a></li>
+
+                    <li class="divider"></li>
+                    <li><a id="btn-show-intro" tabindex="-1" href="#"><i class="icon-ok pull-right"></i>Show introduction</a></li>
+                    <li><a id="btn-show-about" tabindex="-1" href="#"><i class="icon-ok pull-right"></i>About this game</a></li>
+
+                    <li class="divider"></li>
+
+                    <li><a id="btn-keyboard-shortcuts" tabindex="-1" href="#"><i class="icon-question-sign"></i> Keyboard Shortcuts</a></li>
+                    <li><a id="btn-help" tabindex="-1" href="http://irc-sphere.ac.uk/" target="_blank"><i class="icon-question-sign"></i> About the project</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Money -->
+            <div class="pull-right elem-mainmenu">
+              <a class="brand" href="#"><span class="red" id="node-remaining-credits">Remaining credits: 1500 cr</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="main-container" class="sidebar-closed">
+    <div id="palette">
+        <img src="spin.svg" alt="" class="palette-spinner"/>
+        <div class="palette-scroll">
+          <div class="palette-category">
+                <div class="palette-header"><i class="expanded icon-chevron-down"></i><span>Data collection</span></div>
+                <div class="palette-content" id="palette-collection"></div>
+            </div>
+            <div class="palette-category">
+                <div class="palette-header"><i class="expanded icon-chevron-down"></i><span>Environmental sensing devices</span></div>
+                <div class="palette-content" id="palette-environmental"></div>
+            </div>
+            <div class="palette-category">
+                <div class="palette-header"><i class="expanded icon-chevron-down"></i><span>Wearable sensing</span></div>
+                <div class="palette-content" id="palette-wearable"></div>
+            </div>
+            <div class="palette-category">
+                <div class="palette-header"><i class="expanded icon-chevron-down"></i><span>Video sensing</span></div>
+                <div class="palette-content" id="palette-video"></div>
+            </div>
+<!-- disabled for now -->
+<!--        <div class="palette-category">
+              <div class="palette-header"><i class="expanded icon-chevron-down"></i><span>Appliance monitoring</span></div>
+                <div class="palette-content" id="palette-appliance"></div>
+            </div> -->
+        </div>
+    </div><!-- /palette -->
+
+    <div id="workspace">
+        <ul id="workspace-tabs"></ul>
+<!-- disable adding new workspaces -->
+<!--      <div id="workspace-add-tab"><a id="btn-workspace-add-tab" href="#"><i class="icon-plus"></i></a></div> -->
+        <div id="chart">
+</div>
+        <div id="workspace-toolbar">
+            <div class="btn-group">
+                <a class="btn btn-small" href="#"><i class="icon-zoom-out"></i></a>
+                <a class="btn btn-small" href="#"><i class="icon-th"></i></a>
+                <a class="btn btn-small" href="#"><i class="icon-zoom-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="chart-zoom-controls">
+        <div class="btn-group">
+            <a class="btn btn-mini" id="btn-zoom-out" href="#"><i class="icon-zoom-out"></i></a>
+            <a class="btn btn-mini" id="btn-zoom-zero" href="#"><i class="icon-th"></i></a>
+            <a class="btn btn-mini" id="btn-zoom-in" href="#"><i class="icon-zoom-in"></i></a>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <ul id="sidebar-tabs"></ul>
+        <div id="sidebar-content"></div>
+    </div>
+
+    <div id="sidebar-separator"></div>
+
+</div>
+
+<div id="notifications"></div>
+<div id="dropTarget"><div>Drop the flow here</div></div>
+
+<div id="dialog" class="hide"><form id="dialog-form" class="form-horizontal"></form></div>
+<!-- <div id="node-config-dialog" class="hide"><form id="dialog-config-form" class="form-horizontal"></form><div class="form-tips" id="node-config-dialog-user-count"></div></div> -->
+
+<script type="text/x-red" data-template-name="task-default-dialog">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="name" title="Optional name">
+    </div>
+</script>
+
+
+<script type="text/x-red" data-template-name="link-dialog">
+  <div class="form-row">
+    <label for="link-input-protocol">Technology</label>
+    <select id="link-input-protocol" title="Which technology or protocol to use for communications" style="width:320px">
+    </select>
+  </div>
+  <br/>
+  <div class="form-tips">
+    <p><strong>Tip:</strong> communication is only possible if the source and destination devices are sufficiently close. Different protocols have different communication ranges; if a protocol is supported by both devices, but impossible to use because they are too far away, it will be shown as disabled in the list.
+  </div>
+</script>
+
+<div id="node-dialog-confirm-save" class="hide">
+    <form class="form-horizontal">
+        <div id="node-dialog-confirm-save-config" style="text-align: center; padding-top: 30px;">
+         Some of the devices or links are not properly configured. Are you sure you want to save?
+        </div>
+        <div id="node-dialog-confirm-save-unknown" style="text-align: center; padding-top: 10px;">
+         The workspace contains some unknown node types:
+         <ul style="width: 300px; margin: auto; text-align: left;" id="node-dialog-confirm-save-unknown-list"></ul>
+         Are you sure you want to save?
+        </div>
+    </form>
+</div>
+
+<div id="node-dialog-confirm-clear" class="hide">
+    <form class="form-horizontal">
+        <div id="node-dialog-confirm-clear-devices" style="text-align: center; padding-top: 30px;">
+         Do you want to <strong>also</strong> clear all devices?
+        </div>
+        <div id="node-dialog-confirm-clear-achievements" style="text-align: center; padding-top: 30px;">
+         Do you want to <strong>also</strong> clear all achievements?
+        </div>
+    </form>
+</div>
+
+
+<div id="node-help" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="node-help-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-help-label">Keyboard Shortcuts <span style="float: right;"><a href="http://irc-sphere.ac.uk/" target="_blank">Open documentation in new window &raquo;</a></span></h5>
+  </div>
+  <div class="modal-body">
+    <table>
+        <tr>
+          <td><span class="help-key">?</span></td><td>Help</td>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">a</span></td><td>Select all nodes</td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">Space</span></td><td>Toggle sidebar</td>
+          <td><span class="help-key">Shift</span> <span class="help-key">Click</span></td><td>Select all connected nodes</td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">z</span></td><td>Undo</td>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">Click</span></td><td>Add/remove node from selection</td>
+        </tr>
+        <tr>
+          <td></td><td></td>
+          <td><span class="help-key">Delete</span></td><td>Delete selected devices or link</td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">x</span></td><td>Cut selected nodes</td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">c</span></td><td>Copy selected nodes</td>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">v</span></td><td>Paste nodes</td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">i</span></td><td>Import nodes</td>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">e</span></td><td>Export selected nodes</td>
+        </tr>
+        <tr>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">+</span></td><td>Zoom in</td>
+          <td><span class="help-key">Ctrl</span> <span class="help-key">-</span></td><td>Zoom out</td>
+        </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+<div id="node-dialog-suggestion" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="node-suggestion-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-suggestion-label">Suggestion</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div id="suggestion-text-container"> <!--  style="text-align:justify" -->
+        <img src="sphere-w.gif" alt="" width="80" height="58" style="float:left; padding:10px;">
+        <span id="node-suggestion-text"></span>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Ok</button>
+  </div>
+</div>
+
+<div id="node-dialog-achievement" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="node-achievement-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-achievement-label"></h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div id="achievement-text-container">
+        <img src="images/awards-stars-01.png" alt="" width="150" height="143" style="float:left; padding:10px;">
+        <span style="text-align:center" id="achievement-text-congratulations">Congratulations!
+          <br/>
+          <br/>
+        </span>
+        <span id="node-achievement-text" style="text-align:justify"></span>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+
+
+<div id="node-dialog-intro1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="node-intro-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-intro-label"><img src="images/home.png" />&nbsp;&nbsp;&nbsp;&nbsp;Introduction</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div id="dialog-intro-text-container1">
+        <p>You are the <strong>Smart Home Architect</strong>.</p>
+
+        <p>Your mission is to design a <a href="http://irc-sphere.ac.uk/">system for monitoring health-related behaviors</a>.</p>
+
+ <!--          ing the house with the tree sensing modalities: environmental, video, and wearable,  -->
+
+        <p>Your goals are to:
+          <ul>
+            <li>Capture participant activities and location by using wristband sensors and forwarding gateways;</li>
+            <li>Capture the ambient temperature, humidity and lighting levels through the house with environmental sensors;</li>
+            <li>Capture detailed movement and location information with cameras connected to video processing gateways;</li>
+            <li>Store the captured data on a home gateway.</li>
+          </ul>
+        </p>
+
+        <p>&copy; <a href="http://www.bristol.ac.uk/">University of Bristol</a>, 2018</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" id="dialog-intro1-button">How to play...</button>
+  </div>
+</div>
+
+<div id="node-dialog-intro2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="node-intro-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-intro-label"><img src="images/info-icon.png" /> How to play</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div id="dialog-intro-text-container2">
+
+        <p>Use the sensors and other hardware devices; place them in the rooms and connect together to create a meaningful system:</p>
+        <ul>
+          <li>Click and drag the devices from the palette onto the floor plan.</li>
+          <li>Place the devices in appropriate rooms. For example, install sensors in kitchen to gather data about behaviors releated to cooking and eating.</li>
+          <li>Connect the devices with communication links.</li>
+<!--          <li>Design the overall system in a way that makes sense, allows to monitor the "interesting" bits, and uses appropriate communication protocols.</li> -->
+        </ul>
+
+        <p>If you get stuck, look carefully at the suggestions shown by the system. They contain information on what to do next, and how to fix any current problems.</p>
+
+        <p>The main goals of the game are to explore the options and to enjoy the process while learning more about smart home systems.
+          However, if you feel more ambitious, you could try to achieve:</p>
+
+        <div class="form-tips">
+          <p><strong>End goal:</strong> to fully cover the house with all three sensing modalities (environmental, wristband, and video) and unlock the full list of achievements.</p>
+        </div>
+        <br/>
+
+        <p>Have fun!</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" id="dialog-intro-button">Start</button>
+  </div>
+</div>
+
+<div id="node-dialog-about" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="node-intro-label" aria-hidden="true">
+  <div class="modal-header">
+    <h5 id="node-about-label">About</h5>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+      <div id="dialog-intro-text-container1">
+        <p>
+          <img src="sphere-w.gif" alt="" width="80" height="58" style="float:left; padding:10px;" />
+          <strong>Smart Home Architect</strong>
+        </p>
+
+        <p>&copy; University of Bristol, EPSRC IRC <a href="http://irc-sphere.ac.uk/">SPHERE</a>, 2018<br/>
+        Based on Node-RED, &copy; IBM Corp. 2013</p>
+
+        <br/>
+
+        <p>Author: <a href="http://atiselsts.github.io/">Atis Elsts</a><br>
+          Thanks to: Ryan McConville, Dannie Hale, Inga Rumkovska, Hannah Berg</p>
+
+        <p>This game is based on the <a href="http://irc-sphere.ac.uk/">SPHERE</a> <a href="https://www.youtube.com/watch?v=zp1CiE4fCTY">project</a>.</p>
+
+        Please leave feedback at:
+        <ul>
+          <li><a href="https://twitter.com/irc_sphere">@IRC_SPHERE</a></li>
+          <li><a href="https://twitter.com/atiselsts">@atiselsts</a></li>
+          <li><a href="mailto:atis.elsts@bristol.ac.uk">atis.elsts@bristol.ac.uk</a></li>
+        </ul>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true" id="dialog-intro1-button">Close</button>
+  </div>
+</div>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+<script src="jquery/js/jquery-1.9.1.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="jquery/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="jquery/js/jquery.ui.touch-punch.min.js"></script>
+<script src="d3.v3.min.js"></script>
+<script src="utils.js"></script>
+<script src="src/main.js"></script>
+<script src="src/ui/state.js"></script>
+<script src="src/nodes.js"></script>
+<script src="src/validators.js"></script>
+<script src="src/ui/keyboard.js"></script>
+<script src="src/ui/tabs.js"></script>
+<script src="src/ui/view.js"></script>
+<script src="src/ui/sidebar.js"></script>
+<script src="src/ui/palette.js"></script>
+<script src="src/ui/tab-info.js"></script>
+<script src="src/ui/editor.js"></script>
+<script src="src/ui/library.js"></script>
+<script src="src/ui/notifications.js"></script>
+<script src="src/ui/touch/radialMenu.js"></script>
+<script src="src/options.js"></script>
+<script src="src/achievements.js"></script>
+<script src="src/suggestions.js"></script>
+<!-- starts the game -->
+<script src="src/game.js"></script>
+
+</body>
+</html>

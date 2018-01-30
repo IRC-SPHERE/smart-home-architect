@@ -1,0 +1,43 @@
+<div>
+<script type="text/x-red" data-template-name="WaterSensor">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="WaterSensor">
+  <p>SPHERE Water Sensor.</p>
+
+  <p>This device is a modified Environmental Sensor. It has two piezoacoustic sensors (clamps) attached. The clamps in turn are attached to water pipes; they pick up the state of a water tap by sensing vibrations in the pipe connected to a water tap.</p>
+
+  <p><img src="images/hw/spes2-case.jpg" alt="SPES-2 Water Sensor" /></p>
+  <p><img src="images/hw/clamp.jpg" alt="A piezo-acoustic clamp" /></p>
+
+  <p>This device uses embedded hardware developed in the SPHERE project together with off-the-shelf piezo-acoustic clamps (pictured above).</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('WaterSensor',{
+        category: 'environmental',      // the palette category
+        defaults: {             // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:60}
+        },
+        cost:60,
+        color:"rgb(70, 130, 180)",
+        capabilities:["BLE", "TSCH"],
+        modality : "water",
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "sensor.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Water Sensor";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

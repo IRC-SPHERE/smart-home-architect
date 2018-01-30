@@ -1,0 +1,42 @@
+<div>
+<script type="text/x-red" data-template-name="Camera">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" />
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="Camera">
+  <p>Microsoft Kinect 3D camera.</p>
+
+  <p>This device captures raw video data and feeds it to a Video Gateway, where information relevant to activity and motion quality detection is extracted.</p>
+
+  <p><img src="images/hw/kinect.png" alt="Kinect" /></p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('Camera', {
+        category: 'video',      // the palette category
+        defaults: {            // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            cost: {value:80}
+        },
+        color:"#ffa043",
+        cost:80,
+        capabilities:["USB"],
+        capabilitiesOnlyOutput:["USB"],
+        modality : "video",
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "rgb.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Camera";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
+</div>

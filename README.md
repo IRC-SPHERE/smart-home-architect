@@ -1,9 +1,9 @@
 Smart Home Architect
 ====================
 
-Smart Home Architect is a web-based game that interactively demonstrates the SPHERE technology.
+Smart Home Architect is a web-based game that interactively demonstrates SPHERE technology.
 
-It is available for playing at https://irc-sphere.github.io/smart-home-architect/.
+It is available for playing at https://irc-sphere.github.io/smart-home-architect/
 
 ## Overview ##
 

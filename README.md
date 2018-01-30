@@ -30,7 +30,7 @@ If you get stuck, look carefully at the suggestions shown by the system. They co
 
 The main goals of the game are to explore the options and to enjoy the process while learning more about smart home systems. However, if you feel ambitious, you could try to achieve:
 
-> **End goal:** fully cover the house with all three sensing modalities (environmental, wristband, and video) and unlock the full list of achievements.
+* **End goal:** fully cover the house with all three sensing modalities (environmental, wristband, and video) and unlock the full list of achievements.
 
 
 ![Sreenshot](images/screenshot.png)

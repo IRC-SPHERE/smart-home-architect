@@ -118,10 +118,14 @@ RED.nodes = function() {
     }
 
     function getDistance(s, d) {
-        var x = s.x + NODE_WIDTH - d.x;
+        var x1 = s.x + NODE_WIDTH - d.x; // distanct between ports
+        var x2 = s.x - d.x; // distance between centers
         var y = s.y - d.y;
 
-        return Math.sqrt(x * x + y * y);
+        var d1 = Math.sqrt(x1 * x1 + y * y);
+        var d2 = Math.sqrt(x2 * x2 + y * y);
+        // use whatever is the shortest
+        return Math.min(d1, d2);
     }
 
     //
